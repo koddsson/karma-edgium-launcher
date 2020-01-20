@@ -136,7 +136,7 @@ EdgeBrowser.prototype = {
 
   DEFAULT_CMD: {
     linux: getBin(['edge', 'edge-stable']),
-    darwin: getEdgeDarwin('/Applications/Microsoft Edge Beta.app/Contents/MacOS/Microsoft Edge Beta'),
+    darwin: getEdgeDarwin('/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge'),
     win32: getEdgeExe('Edge')
   },
   ENV_CMD: 'CHROME_BIN'
@@ -174,7 +174,7 @@ EdgeHeadlessBrowser.prototype = {
 
   DEFAULT_CMD: {
     linux: getBin(['edge', 'edge-stable']),
-    darwin: getEdgeDarwin('/Applications/Microsoft Edge Beta.app/Contents/MacOS/Microsoft Edge Beta'),
+    darwin: getEdgeDarwin('/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge'),
     win32: getEdgeExe('Edge')
   },
   ENV_CMD: 'EDGE_BIN'
