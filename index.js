@@ -179,6 +179,36 @@ EdgeBetaHeadlessBrowser.prototype = {
 EdgeHeadlessBrowser.$inject = ['baseBrowserDecorator', 'args']
 // #endregion
 
+// #region Edge Dev
+const EdgeDevBrowser = function (...args) {
+  EdgeBrowser.apply(this, args)
+}
+EdgeDevBrowser.prototype = {
+  name: 'EdgeDev',
+
+  DEFAULT_CMD: {
+    darwin: getEdgeDarwin('/Applications/Microsoft Edge Dev.app/Contents/MacOS/Microsoft Edge Dev'),
+    win32: getEdgeExe('Edge Dev')
+  },
+  ENV_CMD: 'EDGE_DEV_BIN'
+}
+EdgeDevBrowser.$inject = ['baseBrowserDecorator', 'args']
+
+const EdgeDevHeadlessBrowser = function (...args) {
+  EdgeHeadlessBrowser.apply(this, args)
+}
+EdgeDevHeadlessBrowser.prototype = {
+  name: 'EdgeDevHeadless',
+
+  DEFAULT_CMD: {
+    darwin: getEdgeDarwin('/Applications/Microsoft Edge Dev.app/Contents/MacOS/Microsoft Edge Dev'),
+    win32: getEdgeExe('Edge Dev')
+  },
+  ENV_CMD: 'EDGE_DEV_BIN'
+}
+EdgeHeadlessBrowser.$inject = ['baseBrowserDecorator', 'args']
+// #endregion
+
 // #region Edge Canary (SxS)
 const EdgeCanaryBrowser = function (...args) {
   EdgeBrowser.apply(this, args)
@@ -219,6 +249,8 @@ module.exports = {
   'launcher:EdgeHeadless': ['type', EdgeHeadlessBrowser],
   'launcher:EdgeBeta': ['type', EdgeBetaBrowser],
   'launcher:EdgeBetaHeadless': ['type', EdgeBetaHeadlessBrowser],
+  'launcher:EdgeDev': ['type', EdgeDevBrowser],
+  'launcher:EdgeDevHeadless': ['type', EdgeDevHeadlessBrowser],
   'launcher:EdgeCanary': ['type', EdgeCanaryBrowser],
   'launcher:EdgeCanaryHeadless': ['type', EdgeCanaryHeadlessBrowser]
 }
