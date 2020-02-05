@@ -82,7 +82,7 @@ function getEdgeDarwin (defaultPath) {
   }
 }
 
-function headlessGetOptions (url, args, parent) {
+function getHeadlessOptions (url, args, parent) {
   const mergedArgs = parent.call(this, url, args).concat([
     '--headless',
     '--disable-gpu',
@@ -94,7 +94,7 @@ function headlessGetOptions (url, args, parent) {
   return mergedArgs.some(isRemoteDebuggingFlag) ? mergedArgs : mergedArgs.concat(['--remote-debugging-port=9222'])
 }
 
-function canaryGetOptions (url, args, parent) {
+function getCanaryOptions (url, args, parent) {
   // disable crankshaft optimizations, as it causes lot of memory leaks (as of Edge 23.0)
   const flags = args.flags || []
   let augmentedFlags
@@ -162,7 +162,7 @@ const EdgeHeadlessBrowser = function (...args) {
 
   const parentOptions = this._getOptions
   this._getOptions = function (url) {
-    return headlessGetOptions.call(this, url, args[1], parentOptions)
+    return getHeadlessOptions.call(this, url, args[1], parentOptions)
   }
 }
 
@@ -184,7 +184,7 @@ const EdgeCanaryBrowser = function (...args) {
 
   const parentOptions = this._getOptions
   this._getOptions = function (url) {
-    return canaryGetOptions.call(this, url, args[1], parentOptions)
+    return getCanaryOptions.call(this, url, args[1], parentOptions)
   }
 }
 
@@ -206,7 +206,7 @@ const EdgeCanaryHeadlessBrowser = function (...args) {
 
   const parentOptions = this._getOptions
   this._getOptions = function (url) {
-    return headlessGetOptions.call(this, url, args[1], parentOptions)
+    return getHeadlessOptions.call(this, url, args[1], parentOptions)
   }
 }
 
@@ -234,6 +234,6 @@ module.exports = {
 module.exports.test = {
   isJSFlags,
   sanitizeJSFlags,
-  headlessGetOptions,
-  canaryGetOptions
+  headlessGetOptions: getHeadlessOptions,
+  canaryGetOptions: getCanaryOptions
 }
