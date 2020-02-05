@@ -1,6 +1,5 @@
 const fs = require('fs')
 const path = require('path')
-const which = require('which')
 
 // #region Common
 function isJSFlags (flag) {
@@ -44,28 +43,6 @@ function getEdgeExe (edgeDirName) {
     }
   }
   return windowsEdgeDirectory
-}
-
-function getBin (commands) {
-  // Don't run these checks on win32
-  if (process.platform !== 'linux') {
-    return null
-  }
-  let bin
-  let i
-  const errors = []
-
-  for (i = 0; i < commands.length; i += 1) {
-    try {
-      if (which.sync(commands[i])) {
-        bin = commands[i]
-        break
-      }
-    } catch (e) {
-      errors.push(e)
-    }
-  }
-  return bin
 }
 
 function getEdgeDarwin (defaultPath) {
