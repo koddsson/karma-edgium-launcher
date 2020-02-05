@@ -144,34 +144,6 @@ const EdgeBrowser = function (baseBrowserDecorator, args) {
   }
 }
 
-// Return location of edge.exe file for a given Edge directory (available: "Edge", "Edge SxS").
-const ChromiumBrowser = function (baseBrowserDecorator, args) {
-  baseBrowserDecorator(this)
-
-  const flags = args.flags || []
-  const userDataDir = args.edgeDataDir || this._tempDir
-
-  this._getOptions = function (url) {
-    // Chromium CLI options
-    // http://peter.sh/experiments/chromium-command-line-switches/
-    flags.forEach((flag, i) => {
-      if (isJSFlags(flag)) {
-        flags[i] = sanitizeJSFlags(flag)
-      }
-    })
-
-    return [
-      `--user-data-dir=${userDataDir}`,
-      '--no-default-browser-check',
-      '--no-first-run',
-      '--disable-default-apps',
-      '--disable-popup-blocking',
-      '--disable-translate',
-      '--disable-background-timer-throttling'
-    ].concat(flags, [url])
-  }
-}
-
 EdgeBrowser.prototype = {
   name: 'Edge',
 
@@ -256,8 +228,7 @@ module.exports = {
   'launcher:Edge': ['type', EdgeBrowser],
   'launcher:EdgeHeadless': ['type', EdgeHeadlessBrowser],
   'launcher:EdgeCanary': ['type', EdgeCanaryBrowser],
-  'launcher:EdgeCanaryHeadless': ['type', EdgeCanaryHeadlessBrowser],
-  'launcher:Chromium': ['type', ChromiumBrowser]
+  'launcher:EdgeCanaryHeadless': ['type', EdgeCanaryHeadlessBrowser]
 }
 
 module.exports.test = {
