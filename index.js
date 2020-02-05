@@ -110,6 +110,7 @@ function getCanaryOptions (url, args, parent) {
 }
 // #endregion
 
+// #region Edge
 const EdgeBrowser = function (baseBrowserDecorator, args) {
   baseBrowserDecorator(this)
 
@@ -143,41 +144,33 @@ const EdgeBrowser = function (baseBrowserDecorator, args) {
     ].concat(flags, [url])
   }
 }
-
 EdgeBrowser.prototype = {
   name: 'Edge',
 
   DEFAULT_CMD: {
-    linux: getBin(['edge', 'edge-stable']),
-    darwin: getEdgeDarwin('/Applications/Microsoft Edge Beta.app/Contents/MacOS/Microsoft Edge Beta'),
-    win32: getEdgeExe('Edge')
-  },
-  ENV_CMD: 'CHROME_BIN'
-}
-
-EdgeBrowser.$inject = ['baseBrowserDecorator', 'args']
-
-const EdgeHeadlessBrowser = function (...args) {
-  EdgeBrowser.apply(this, args)
-
-  const parentOptions = this._getOptions
-  this._getOptions = function (url) {
-    return getHeadlessOptions.call(this, url, args[1], parentOptions)
-  }
-}
-
-EdgeHeadlessBrowser.prototype = {
-  name: 'EdgeHeadless',
-
-  DEFAULT_CMD: {
-    linux: getBin(['edge', 'edge-stable']),
-    darwin: getEdgeDarwin('/Applications/Microsoft Edge Beta.app/Contents/MacOS/Microsoft Edge Beta'),
+    darwin: getEdgeDarwin('/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge'),
     win32: getEdgeExe('Edge')
   },
   ENV_CMD: 'EDGE_BIN'
 }
+EdgeBrowser.$inject = ['baseBrowserDecorator', 'args']
 
+const EdgeHeadlessBrowser = function (...args) {
+  EdgeBrowser.apply(this, args)
+  const parentOptions = this._getOptions
+  this._getOptions = (url) => getHeadlessOptions.call(this, url, args[1], parentOptions)
+}
+EdgeHeadlessBrowser.prototype = {
+  name: 'EdgeHeadless',
+
+  DEFAULT_CMD: {
+    darwin: getEdgeDarwin('/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge'),
+    win32: getEdgeExe('Edge')
+  },
+  ENV_CMD: 'EDGE_BIN'
+}
 EdgeHeadlessBrowser.$inject = ['baseBrowserDecorator', 'args']
+// #endregion
 
 const EdgeCanaryBrowser = function (...args) {
   EdgeBrowser.apply(this, args)
