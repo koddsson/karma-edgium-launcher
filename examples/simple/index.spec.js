@@ -1,7 +1,3 @@
-/* eslint-env mocha */
-
-describe('EdgeLauncher', function () {
-  it('works', function () {
-    return 1 + 1 === 2
-  })
+describe('EdgeLauncher', () => {
+  it('works', () => 1 + 1 === 2)
 })

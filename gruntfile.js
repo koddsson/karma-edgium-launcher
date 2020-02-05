@@ -1,3 +1,6 @@
+/* eslint-disable import/no-extraneous-dependencies */
+const loadGruntTasks = require('load-grunt-tasks')
+
 module.exports = function (grunt) {
   grunt.initConfig({
     pkgFile: 'package.json',
@@ -62,15 +65,15 @@ module.exports = function (grunt) {
     }
   })
 
-  require('load-grunt-tasks')(grunt)
+  loadGruntTasks(grunt)
 
   grunt.registerTask('test', ['simplemocha'])
   grunt.registerTask('default', ['test'])
 
-  grunt.registerTask('release', 'Bump the version and publish to NPM.', function (type) {
+  grunt.registerTask('release', 'Bump the version and publish to NPM.', (type) => {
     grunt.task.run([
       'npm-contributors',
-      'bump:' + (type || 'patch') + ':bump-only',
+      `bump:${type || 'patch'}:bump-only`,
       'conventionalChangelog',
       'bump-commit',
       'conventionalGithubReleaser',
