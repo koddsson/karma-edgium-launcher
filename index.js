@@ -172,49 +172,39 @@ EdgeHeadlessBrowser.prototype = {
 EdgeHeadlessBrowser.$inject = ['baseBrowserDecorator', 'args']
 // #endregion
 
+// #region Edge Canary (SxS)
 const EdgeCanaryBrowser = function (...args) {
   EdgeBrowser.apply(this, args)
-
   const parentOptions = this._getOptions
-  this._getOptions = function (url) {
-    return getCanaryOptions.call(this, url, args[1], parentOptions)
-  }
+  this._getOptions = (url) => getCanaryOptions.call(this, url, args[1], parentOptions)
 }
-
 EdgeCanaryBrowser.prototype = {
   name: 'EdgeCanary',
 
   DEFAULT_CMD: {
-    linux: getBin(['edge-canary', 'edge-unstable']),
     darwin: getEdgeDarwin('/Applications/Microsoft Edge Canary.app/Contents/MacOS/Microsoft Edge Canary'),
     win32: getEdgeExe('Edge SxS')
   },
-  ENV_CMD: 'CHROME_CANARY_BIN'
+  ENV_CMD: 'EDGE_CANARY_BIN'
 }
-
 EdgeCanaryBrowser.$inject = ['baseBrowserDecorator', 'args']
 
 const EdgeCanaryHeadlessBrowser = function (...args) {
   EdgeCanaryBrowser.apply(this, args)
-
   const parentOptions = this._getOptions
-  this._getOptions = function (url) {
-    return getHeadlessOptions.call(this, url, args[1], parentOptions)
-  }
+  this._getOptions = (url) => getHeadlessOptions.call(this, url, args[1], parentOptions)
 }
-
 EdgeCanaryHeadlessBrowser.prototype = {
   name: 'EdgeCanaryHeadless',
 
   DEFAULT_CMD: {
-    linux: getBin(['edge-canary', 'edge-unstable']),
     darwin: getEdgeDarwin('/Applications/Microsoft Edge Canary.app/Contents/MacOS/Microsoft Edge Canary'),
     win32: getEdgeExe('Edge SxS')
   },
-  ENV_CMD: 'CHROME_CANARY_BIN'
+  ENV_CMD: 'EDGE_CANARY_BIN'
 }
-
 EdgeCanaryHeadlessBrowser.$inject = ['baseBrowserDecorator', 'args']
+// #endregion
 
 // PUBLISH DI MODULE
 module.exports = {
