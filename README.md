@@ -22,7 +22,7 @@ $ npm i -D karma-edgium-launcher
 // karma.conf.js
 module.exports = function(config) {
   config.set({
-    browsers: ['Edge', 'Edge_without_security'], // You may use 'EdgeCanary' or any other supported browser
+    browsers: ['Edge', 'Edge_without_security'], // You may use 'EdgeCanary', 'EdgeBeta' or any other supported browser
 
     // you can define custom flags
     customLaunchers: {
@@ -54,6 +54,19 @@ You can pass list of browsers as a CLI argument too:
 $ karma start --browsers Edge,Edge_without_security
 ```
 
+### Available Browsers
+*Note: Headless mode requires a browser version >= 59*
+
+- Edge (EDGE_BIN)
+- EdgeHeadless (EDGE_BIN)
+- EdgeBeta (EDGE_BETA_BIN)
+- EdgeBetaHeadless (EDGE_BETA_BIN)
+- EdgeDev (EDGE_DEV_BIN)
+- EdgeDevHeadless (EDGE_DEV_BIN)
+- EdgeCanary (EDGE_CANARY_BIN)
+- EdgeCanaryHeadless (EDGE_CANARY_BIN)
+- Dartium (DARTIUM_BIN)
+
 #### Usage
 ```bash
 $ npm i -D puppeteer karma-edgium-launcher
@@ -61,7 +74,7 @@ $ npm i -D puppeteer karma-edgium-launcher
 
 ```js
 // karma.conf.js
-process.env.CHROME_BIN = require('puppeteer').executablePath()
+process.env.EDGE_BIN = require('puppeteer').executablePath()
 
 module.exports = function(config) {
   config.set({

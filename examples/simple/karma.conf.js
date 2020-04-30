@@ -1,3 +1,5 @@
+const karmaEdgeLauncher = require('../../')
+
 module.exports = function (config) {
   config.set({
     basePath: '',
@@ -25,7 +27,7 @@ module.exports = function (config) {
     singleRun: false,
 
     plugins: [
-      require('../../'),
+      karmaEdgeLauncher,
       'karma-mocha'
     ]
   })
